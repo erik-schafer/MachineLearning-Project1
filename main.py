@@ -7,18 +7,24 @@ from sklearn.neural_network import MLPClassifier
 from sklearn import svm
 from sklearn.ensemble import GradientBoostingClassifier
 
-import graphviz 
+#import graphviz 
 
 def SampleDataSet(dataSeq, labelSeq):
     trainData = []
     trainLabels = []
+    testData = []
+    testLabels = []
     for i in range(len(dataSeq)):
         if i % 2 == 0:
             trainData.append(dataSeq[i])
             trainLabels.append(labelSeq[i])
-    return trainData, trainLabels
+        else:
+            testData.append(dataSeq[i])
+            testLabels.append(labelSeq[i])
+    return trainData, trainLabels, #testData, testLabels
 
 def treeTester(X, Y):
+    # todo: add boosting
     trainData, trainLabels = SampleDataSet(X, Y)
     clf = tree.DecisionTreeClassifier()
     clf = clf.fit(trainData, trainLabels)
@@ -57,6 +63,7 @@ def MLPTester(X,Y):
     printErrRate(errCnt, len(X))
 
 def SVMTester(X,Y):
+    # todo: try to add two kernals
     trainData, trainLabels = SampleDataSet(X, Y)
     clf = svm.SVC()
     clf.fit(trainData, trainLabels)
